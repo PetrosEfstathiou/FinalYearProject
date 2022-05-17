@@ -8,7 +8,8 @@ using Microsoft.OpenApi.Models;
 using FinalYearProject.Services.patientService.AppointmentService;
 using FinalYearProject.Services.patientService.XrayService;
 using System.Net.Http.Headers;
-
+using FinalYearProject.Services.patientService.DoctorService;
+using FinalYearProject.Services.patientService.TreatmentService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,8 @@ builder.Services.AddScoped<IAppService, AppService>();
 builder.Services.AddScoped<IpatientService, patientService>();
 builder.Services.AddScoped<IXrayService,XrayService>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IDoctorService,DoctorService>();
+builder.Services.AddScoped<ITreatmentService,TreatmentService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

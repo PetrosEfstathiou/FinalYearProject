@@ -13,5 +13,7 @@ namespace FinalYearProject.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Xray> Xrays {get;set;}
+        public DbSet<Doctor> Doctors {get;set;}
+        public DbSet<Treatment> Treatments {get;set;}
     }
 }

@@ -38,6 +38,19 @@ namespace FinalYearProject.Controllers
             return Ok (response);
         }
 
+        [HttpGet]
+        [Route("GetSinglebyTel")]
+        public async Task<ActionResult<ServiceResponse<List<GetPatientDto>>>> GetbyTel(int tel)
+        {
+            var response =await _patientService.GetpatientById(tel);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            response.Message = "Patients Found";
+            return Ok (response);
+        }
+
         [HttpPost]
         [Route("Newpatient")]
         public async Task<ActionResult<ServiceResponse<List<GetPatientDto>>>> Addpatient(AddPatientDto newPatient)

@@ -44,20 +44,58 @@ namespace FinalYearProject.Migrations
                     b.Property<DateTime>("dateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("doctor")
+                        .HasColumnType("int");
+
                     b.Property<int>("mduration")
                         .HasColumnType("int");
 
                     b.Property<int>("patient")
                         .HasColumnType("int");
 
-                    b.Property<int?>("patientId")
+                    b.Property<int>("treatment")
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
-                    b.HasIndex("patientId");
-
                     b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("FinalYearProject.Models.Doctor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("specialty")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("telnum")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Doctors");
                 });
 
             modelBuilder.Entity("FinalYearProject.Models.patient", b =>
@@ -103,6 +141,36 @@ namespace FinalYearProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Patients");
+                });
+
+            modelBuilder.Entity("FinalYearProject.Models.Treatment", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+
+                    b.Property<int>("appointment")
+                        .HasColumnType("int");
+
+                    b.Property<int>("cost")
+                        .HasColumnType("int");
+
+                    b.Property<int>("patient")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("timage")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("treatment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Treatments");
                 });
 
             modelBuilder.Entity("FinalYearProject.Models.User", b =>
@@ -159,18 +227,6 @@ namespace FinalYearProject.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Xrays");
-                });
-
-            modelBuilder.Entity("FinalYearProject.Models.Appointment", b =>
-                {
-                    b.HasOne("FinalYearProject.Models.patient", null)
-                        .WithMany("Appointments")
-                        .HasForeignKey("patientId");
-                });
-
-            modelBuilder.Entity("FinalYearProject.Models.patient", b =>
-                {
-                    b.Navigation("Appointments");
                 });
 #pragma warning restore 612, 618
         }

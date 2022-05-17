@@ -86,6 +86,8 @@ namespace FinalYearProject.Services.patientService
                 appointment.CancelReason = updatedAppointment.CancelReason;
                 appointment.dateTime = updatedAppointment.dateTime;
                 appointment.mduration = updatedAppointment.mduration;
+                appointment.doctor = updatedAppointment.doctor;
+                appointment.treatment = updatedAppointment.treatment;
 
                 await _context.SaveChangesAsync();
                 ServiceResponse.Data = _mapper.Map<GetAppointmentDto>(appointment);

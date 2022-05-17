@@ -71,6 +71,19 @@ namespace FinalYearProject.Services.patientService
             return ServiceResponse;
         }
 
+        public async Task<ServiceResponse<GetPatientDto>> GetpatientByTel(int tel)
+        {
+            var ServiceResponse = new ServiceResponse<GetPatientDto>();
+            var dbPatient = await _context.Patients.AnyAsync(p => int.Parse(p.telnum) == tel);
+            ServiceResponse.Data = _mapper.Map<GetPatientDto>(dbPatient);
+            if (ServiceResponse.Data == null)
+            {
+                ServiceResponse.Success = false;
+                ServiceResponse.Message = "Patient not found";
+            }
+            return ServiceResponse;
+        }
+
         public async Task<ServiceResponse<GetPatientDto>> UpdatePatient(UpdatePatientDto updatedPatient)
         {
 
