@@ -10,6 +10,7 @@ using FinalYearProject.Services.patientService.XrayService;
 using System.Net.Http.Headers;
 using FinalYearProject.Services.patientService.DoctorService;
 using FinalYearProject.Services.patientService.TreatmentService;
+using FinalYearProject.Services.patientService.TreatmentCostService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,13 +23,16 @@ var encryptionstring = configuration.GetSection("AppSettings:Token");
 builder.Services.AddDbContext<DataContext>(options=>
 options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
+builder.Services.AddScoped<ITreatmentService,TreatmentService>();
 builder.Services.AddScoped<IAppService, AppService>();
 builder.Services.AddScoped<IpatientService, patientService>();
 builder.Services.AddScoped<IXrayService,XrayService>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IDoctorService,DoctorService>();
-builder.Services.AddScoped<ITreatmentService,TreatmentService>();
+builder.Services.AddScoped<ITreatmentCostService,TreatmentCostService>();
+
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c=>

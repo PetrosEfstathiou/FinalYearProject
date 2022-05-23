@@ -31,6 +31,20 @@ namespace FinalYearProject.Controllers
         {
             return Ok(await _AppService.GetAppointmentsbyID(id));
         }
+                [HttpGet]
+        [Route("GetbyAppID")]
+        public async Task<ActionResult<ServiceResponse<GetAppointmentDto>>> GetbyAppID(int id)
+        {
+            return Ok(await _AppService.GetAppointmentsbyAppID(id));
+        }
+        
+         [HttpGet]
+        [Route("GetbyDate")]
+        public async Task<ActionResult<ServiceResponse<List<GetAppointmentDto>>>> GetbyDate(DateTime date,int doctor)
+        {
+            return Ok(await _AppService.GetAppointmentsbyDate(date,doctor));
+        }
+
 
         [HttpPost]
         [Route("AddAppointment")]

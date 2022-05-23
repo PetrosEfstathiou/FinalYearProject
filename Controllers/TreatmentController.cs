@@ -15,7 +15,7 @@ namespace FinalYearProject.Controllers
     {
         private readonly ITreatmentService _TreatmentService;
 
-        public TreatmentController(TreatmentService TreatmentService)
+        public TreatmentController(ITreatmentService TreatmentService)
         {
             _TreatmentService = TreatmentService;
 
@@ -23,24 +23,30 @@ namespace FinalYearProject.Controllers
 
         [HttpGet]
         [Route("GetbyID")]
-        public async Task<ActionResult<ServiceResponse<List<TreatmentDto>>>> GetbyID(int id)
+        public async Task<ActionResult<ServiceResponse<TreatmentDto>>> GetbyID(int id)
         {
             return Ok(await _TreatmentService.GetTreatment(id));
         }
-        
+        [HttpGet]
+        [Route("GetbyAppID")]
+        public async Task<ActionResult<ServiceResponse<TreatmentDto>>> GetbyAppID(int id)
+        {
+            return Ok(await _TreatmentService.GetTreatmentbyAppID(id));
+        }
+
          [HttpPost]
         [Route("AddTreatment")]
-        public async Task<ActionResult<ServiceResponse<int>>> AddTreatment(TreatmentDto newTreatment)
+        public async Task<ActionResult<ServiceResponse<int>>> AddTreatment(AddTreatmentDto newTreatment)
         {
                     return Ok(await _TreatmentService.AddTreatment(newTreatment));
         }
 
         [HttpPut]
         [Route("EditTreatment")]
-        public async Task<ActionResult<ServiceResponse<TreatmentDto>>> EditTreatment(TreatmentDto updatedTreatment)
+        public async Task<ActionResult<ServiceResponse<int>>> EditTreatment(TreatmentDto updatedTreatment)
         {
             var response = await _TreatmentService.EditTreatment(updatedTreatment);
-            if (response.Data == null)
+            if (response.Data == 0)
             {
                 return NotFound(response);
             }

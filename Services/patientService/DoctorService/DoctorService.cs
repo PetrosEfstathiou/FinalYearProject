@@ -19,13 +19,14 @@ namespace FinalYearProject.Services.patientService.DoctorService
         }
 
 
-        public async Task<ServiceResponse<List<DoctorDto>>> AddDoctor(DoctorDto newDoctor)
+        public async Task<ServiceResponse<List<DoctorDto>>> AddDoctor(AddDoctorDto newDoctor)
         {
             var ServiceResponse = new ServiceResponse<List<DoctorDto>>();
             Doctor doctor = (_mapper.Map<Doctor>(newDoctor));
             _context.Doctors.Add(doctor);
             await _context.SaveChangesAsync();
             ServiceResponse.Data = await _context.Doctors.Select(p => _mapper.Map<DoctorDto>(p)).ToListAsync();
+            ServiceResponse.Message = "Doctor Added Successfully";
             return ServiceResponse;
         }
 

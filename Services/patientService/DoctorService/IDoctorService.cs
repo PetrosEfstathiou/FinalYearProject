@@ -7,7 +7,7 @@ namespace FinalYearProject.Services.patientService.DoctorService
     {
          Task<ServiceResponse<List<DoctorDto>>> GetAllDoctors();
          Task<ServiceResponse<DoctorDto>> GetDoctorById (int id);
-         Task<ServiceResponse<List<DoctorDto>>> AddDoctor(DoctorDto newDoctor);
+         Task<ServiceResponse<List<DoctorDto>>> AddDoctor(AddDoctorDto newDoctor);
 
          Task<ServiceResponse<DoctorDto>> UpdateDoctor(DoctorDto updatedDoctor);
     }

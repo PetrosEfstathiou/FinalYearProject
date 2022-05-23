@@ -5,6 +5,7 @@ using FinalYearProject.Dtos.patient.Xray;
 using FinalYearProject.Dtos.patient.Doctor;
 using FinalYearProject.Models;
 using FinalYearProject.Dtos.patient.Treatment;
+using FinalYearProject.Dtos.patient.TreatmentCost;
 
 namespace FinalYearProject
 {
@@ -18,10 +19,17 @@ namespace FinalYearProject
             CreateMap<AddAppointmentDto,Appointment>();
             CreateMap<Xray,XrayDto>();
             CreateMap<XrayDto,Xray>();
+            CreateMap<Xray,AddXrayDto>();
+            CreateMap<AddXrayDto,Xray>();
             CreateMap<Doctor,DoctorDto>();
             CreateMap<DoctorDto,Doctor>();
             CreateMap<Treatment,TreatmentDto>();
-            CreateMap<TreatmentDto,Treatment>();            
+            CreateMap<TreatmentDto,Treatment>();
+            CreateMap<AddTreatmentDto,Treatment>();
+            CreateMap<AddDoctorDto,Doctor>();
+            CreateMap<TreatmentCostDto,TreatmentCost>();
+            CreateMap<TreatmentCost,TreatmentCostDto>();
+                        
         }
     }
 }

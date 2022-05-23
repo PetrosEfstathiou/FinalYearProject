@@ -42,7 +42,7 @@ namespace FinalYearProject.Controllers
 
         [HttpPost]
         [Route("AddDoctor")]
-        public async Task<ActionResult<ServiceResponse<List<DoctorDto>>>> AddDoctor(DoctorDto newDoctor)
+        public async Task<ActionResult<ServiceResponse<List<DoctorDto>>>> AddDoctor(AddDoctorDto newDoctor)
         {
             return Ok(await _DoctorService.AddDoctor(newDoctor));
         }

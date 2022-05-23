@@ -28,6 +28,7 @@ namespace FinalYearProject.Services.patientService
             _context.Patients.Add(patient);
             await _context.SaveChangesAsync();
             ServiceResponse.Data = await _context.Patients.Select(p => _mapper.Map<GetPatientDto>(p)).ToListAsync();
+            ServiceResponse.Message = "Patient succesfully added";
             return ServiceResponse;
         }
 

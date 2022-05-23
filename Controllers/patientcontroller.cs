@@ -39,7 +39,7 @@ namespace FinalYearProject.Controllers
         }
 
         [HttpGet]
-        [Route("GetSinglebyTel")]
+        [Route("GetbyTel")]
         public async Task<ActionResult<ServiceResponse<List<GetPatientDto>>>> GetbyTel(int tel)
         {
             var response =await _patientService.GetpatientById(tel);

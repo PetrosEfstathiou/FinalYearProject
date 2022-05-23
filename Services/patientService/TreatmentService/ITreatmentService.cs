@@ -5,9 +5,11 @@ namespace FinalYearProject.Services.patientService.TreatmentService
 {
     public interface ITreatmentService
     {
-        Task<ServiceResponse<List<TreatmentDto>>> GetTreatment(int pid);
-        Task<ServiceResponse<int>> AddTreatment (TreatmentDto newTreatment);
+        Task<ServiceResponse<TreatmentDto>> GetTreatment(int pid);
+        Task<ServiceResponse<int>> AddTreatment (AddTreatmentDto newTreatment);
         Task <ServiceResponse<int>> EditTreatment (TreatmentDto updatedTreatment);
+        Task<ServiceResponse<TreatmentDto>> GetTreatmentbyAppID(int id);
+
 
     }
 }

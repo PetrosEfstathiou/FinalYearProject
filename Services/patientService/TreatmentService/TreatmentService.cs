@@ -18,7 +18,7 @@ namespace FinalYearProject.Services.patientService.TreatmentService
 
         }
 
-        public async Task<ServiceResponse<int>> AddTreatment(TreatmentDto newTreatment)
+        public async Task<ServiceResponse<int>> AddTreatment(AddTreatmentDto newTreatment)
         {
             var ServiceResponse = new ServiceResponse<int>();
             Treatment treat = (_mapper.Map<Treatment>(newTreatment));
@@ -30,16 +30,53 @@ namespace FinalYearProject.Services.patientService.TreatmentService
 
         public async Task<ServiceResponse<int>> EditTreatment(TreatmentDto updatedTreatment)
         {
-            throw new NotImplementedException();
+          var ServiceResponse = new ServiceResponse<int>();
+            try
+            {
+                Treatment treatment = await _context.Treatments.FirstOrDefaultAsync(t => t.id == updatedTreatment.id);
+                treatment.appointment = updatedTreatment.appointment;
+                treatment.cost = updatedTreatment.cost;
+                treatment.patient = updatedTreatment.patient;
+                treatment.timage = updatedTreatment.timage;
+                treatment.treatment = updatedTreatment.treatment;
+                await _context.SaveChangesAsync();
+                ServiceResponse.Data = 1;
+            }
+            catch (Exception Ex)
+            {
+                ServiceResponse.Data = 0;
+                ServiceResponse.Success = false;
+                ServiceResponse.Message = "Treatment does not exist";
+            }
+            return ServiceResponse;
         }
 
-        public async Task<ServiceResponse<List<TreatmentDto>>> GetTreatment(int pid)
+        public async Task<ServiceResponse<TreatmentDto>> GetTreatment(int tid)
         {
-          var ServiceResponse = new ServiceResponse<List<TreatmentDto>>();
-          var dbtreatments = await _context.Treatments.Where(t => t.patient == pid).ToListAsync();
-          ServiceResponse.Data = dbtreatments.Select(t=> _mapper.Map<TreatmentDto>(t)).ToList();
-          return ServiceResponse;
+          var ServiceResponse = new ServiceResponse<TreatmentDto>();
+            var dbtreat = await _context.Treatments.FirstOrDefaultAsync(t => t.id == tid);
+            ServiceResponse.Data = _mapper.Map<TreatmentDto>(dbtreat);
+            if (ServiceResponse.Data == null)
+            {
+                ServiceResponse.Success = false;
+                ServiceResponse.Message = "Treatment not found";
+            }
+            return ServiceResponse;
         }
-    }
 
+        public async Task<ServiceResponse<TreatmentDto>> GetTreatmentbyAppID(int id)
+        {   
+           var ServiceResponse = new ServiceResponse<TreatmentDto>();
+            var dbtreat = await _context.Treatments.FirstOrDefaultAsync(t => t.appointment == id);
+            ServiceResponse.Data = _mapper.Map<TreatmentDto>(dbtreat);
+            if (ServiceResponse.Data == null)
+            {
+                ServiceResponse.Success = false;
+                ServiceResponse.Message = "Treatment not found for that Appointment";
+            }
+            return ServiceResponse;
+          
+        }
+
+    }
 }

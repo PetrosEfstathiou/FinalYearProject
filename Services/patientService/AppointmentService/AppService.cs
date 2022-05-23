@@ -65,6 +65,26 @@ namespace FinalYearProject.Services.patientService
             return ServiceResponse;
         }
 
+        public async Task<ServiceResponse<GetAppointmentDto>> GetAppointmentsbyAppID(int id)
+        {
+              var ServiceResponse = new ServiceResponse<GetAppointmentDto>();
+            var dbAppointment = await _context.Appointments.FirstOrDefaultAsync(a => a.id == id);
+            ServiceResponse.Data = _mapper.Map<GetAppointmentDto>(dbAppointment);
+            if (ServiceResponse.Data == null)
+            {
+                ServiceResponse.Success = false;
+                ServiceResponse.Message = "Appointment not found";
+            }
+            return ServiceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetAppointmentDto>>> GetAppointmentsbyDate(DateTime date, int Doc)
+        {
+            var ServiceResponse = new ServiceResponse<List<GetAppointmentDto>>();
+            var dbAppointments = await _context.Appointments.Where(a => (a.dateTime.Year == date.Year && a.dateTime.Month==date.Month && a.dateTime.Day ==date.Day && a.cancelled==false && a.doctor == Doc)).ToListAsync();
+            ServiceResponse.Data = dbAppointments.Select(a=> _mapper.Map<GetAppointmentDto>(a)).ToList();
+            return ServiceResponse;
+        }
 
         public async Task<ServiceResponse<List<GetAppointmentDto>>> GetAppointmentsbyID(int id)
         {
@@ -80,7 +100,8 @@ namespace FinalYearProject.Services.patientService
              var ServiceResponse = new ServiceResponse<GetAppointmentDto>();
             try
             {
-                Appointment appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.patient == updatedAppointment.id);
+                Appointment appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.id == updatedAppointment.id);
+                appointment.patient = updatedAppointment.patient;
                 appointment.AppReason = updatedAppointment.AppReason;
                 appointment.cancelled = updatedAppointment.cancelled;
                 appointment.CancelReason = updatedAppointment.CancelReason;
@@ -97,7 +118,7 @@ namespace FinalYearProject.Services.patientService
                 ServiceResponse.Success = false;
                 ServiceResponse.Message = "Appointment does not exist";
               
-                }
+            }
             return ServiceResponse;
         }
 
