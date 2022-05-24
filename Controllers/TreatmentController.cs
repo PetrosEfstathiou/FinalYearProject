@@ -27,6 +27,14 @@ namespace FinalYearProject.Controllers
         {
             return Ok(await _TreatmentService.GetTreatment(id));
         }
+
+        [HttpGet]
+        [Route("GetbyPatientID")]
+        public async Task<ActionResult<ServiceResponse<TreatmentDto>>> GetbyPID(int id)
+        {
+            return Ok(await _TreatmentService.GetTreatmentbyPatientID(id));
+        }
+
         [HttpGet]
         [Route("GetbyAppID")]
         public async Task<ActionResult<ServiceResponse<TreatmentDto>>> GetbyAppID(int id)
