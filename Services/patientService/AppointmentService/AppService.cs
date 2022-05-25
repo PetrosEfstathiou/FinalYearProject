@@ -62,6 +62,11 @@ namespace FinalYearProject.Services.patientService
             var ServiceResponse = new ServiceResponse<List<GetAppointmentDto>>();
             var dbAppointments = await _context.Appointments.ToListAsync();
             ServiceResponse.Data = dbAppointments.Select(a => _mapper.Map<GetAppointmentDto>(a)).ToList();
+            if (ServiceResponse.Data == null)
+            {
+                ServiceResponse.Success = false;
+                ServiceResponse.Message = "No appointments found in database";
+            }
             return ServiceResponse;
         }
 
@@ -83,6 +88,11 @@ namespace FinalYearProject.Services.patientService
             var ServiceResponse = new ServiceResponse<List<GetAppointmentDto>>();
             var dbAppointments = await _context.Appointments.Where(a => (a.dateTime.Year == date.Year && a.dateTime.Month==date.Month && a.dateTime.Day ==date.Day && a.cancelled==false && a.doctor == Doc)).ToListAsync();
             ServiceResponse.Data = dbAppointments.Select(a=> _mapper.Map<GetAppointmentDto>(a)).ToList();
+            if (ServiceResponse.Data == null)
+            {
+                ServiceResponse.Success = false;
+                ServiceResponse.Message = "No Appointments found for that date";
+            }
             return ServiceResponse;
         }
 
@@ -91,6 +101,11 @@ namespace FinalYearProject.Services.patientService
             var ServiceResponse = new ServiceResponse<List<GetAppointmentDto>>();
             var dbAppointments = await _context.Appointments.Where(a => a.patient ==id).ToListAsync();
             ServiceResponse.Data = dbAppointments.Select(a=> _mapper.Map<GetAppointmentDto>(a)).ToList();
+            if (ServiceResponse.Data == null)
+            {
+                ServiceResponse.Success = false;
+                ServiceResponse.Message = "Appointments not found for that patient";
+            }
             return ServiceResponse;
         }
 

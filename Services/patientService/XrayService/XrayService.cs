@@ -54,6 +54,11 @@ namespace FinalYearProject.Services.patientService.XrayService
             var ServiceResponse = new ServiceResponse<List<XrayDto>>();
             var dbXrays = await _context.Xrays.Where(x => x.patient == patientid).ToListAsync();
             ServiceResponse.Data = dbXrays.Select(x=> _mapper.Map<XrayDto>(x)).ToList();
+            if (ServiceResponse.Data == null)
+            {
+                ServiceResponse.Success = false;
+                ServiceResponse.Message = "Xray not found";
+            }
             return ServiceResponse;
         }
     }

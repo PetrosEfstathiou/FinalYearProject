@@ -35,6 +35,11 @@ namespace FinalYearProject.Services.patientService.DoctorService
             var ServiceResponse = new ServiceResponse<List<DoctorDto>>();
             var dbDoctors = await _context.Doctors.ToListAsync();
             ServiceResponse.Data = dbDoctors.Select(p => _mapper.Map<DoctorDto>(p)).ToList();
+            if (ServiceResponse.Data == null)
+            {
+                ServiceResponse.Success = false;
+                ServiceResponse.Message = "Doctors not found in database";
+            }
             return ServiceResponse;
         }
 

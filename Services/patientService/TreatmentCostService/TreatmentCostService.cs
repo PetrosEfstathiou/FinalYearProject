@@ -53,6 +53,11 @@ namespace FinalYearProject.Services.patientService.TreatmentCostService
             var ServiceResponse = new ServiceResponse<List<TreatmentCostDto>>();
             var dbTreatmentCosts = await _context.TreatmentCosts.ToListAsync();
             ServiceResponse.Data = dbTreatmentCosts.Select(t => _mapper.Map<TreatmentCostDto>(t)).ToList();
+            if (ServiceResponse.Data == null)
+            {
+                ServiceResponse.Success = false;
+                ServiceResponse.Message = "Treatment costs not found in database";
+            }
             return ServiceResponse;
         }
     }

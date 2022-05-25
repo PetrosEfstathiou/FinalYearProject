@@ -83,7 +83,7 @@ namespace FinalYearProject.Services.patientService.TreatmentService
                var ServiceResponse = new ServiceResponse<List<TreatmentDto>>();
             var dbTreatments = await _context.Treatments.Where(t => t.patient == pid).ToListAsync();
             ServiceResponse.Data = dbTreatments.Select(t=> _mapper.Map<TreatmentDto>(t)).ToList();
-            if (ServiceResponse.Data == null)
+            if (ServiceResponse.Data.Count == 0)
             {
                 ServiceResponse.Success = false;
                 ServiceResponse.Message = "Treatments not found for that patient";

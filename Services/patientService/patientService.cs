@@ -46,7 +46,6 @@ namespace FinalYearProject.Services.patientService
             {
                 ServiceResponse.Success = false;
                 ServiceResponse.Message = "Patient does not exist";
-                //    ServiceResponse.Message = Ex.Message;
             }
             return ServiceResponse;
         }
@@ -56,6 +55,11 @@ namespace FinalYearProject.Services.patientService
             var ServiceResponse = new ServiceResponse<List<GetPatientDto>>();
             var dbPatients = await _context.Patients.ToListAsync();
             ServiceResponse.Data = dbPatients.Select(p => _mapper.Map<GetPatientDto>(p)).ToList();
+            if (ServiceResponse.Data == null)
+            {
+                ServiceResponse.Success = false;
+                ServiceResponse.Message = "Patients not found in database";
+            }
             return ServiceResponse;
         }
 
