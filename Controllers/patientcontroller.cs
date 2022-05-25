@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FinalYearProject.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("PatientController")]
     public class patientcontroller : ControllerBase
@@ -42,7 +42,7 @@ namespace FinalYearProject.Controllers
         [Route("GetbyTel")]
         public async Task<ActionResult<ServiceResponse<List<GetPatientDto>>>> GetbyTel(int tel)
         {
-            var response =await _patientService.GetpatientById(tel);
+            var response =await _patientService.GetpatientByTel(tel);
             if (response.Data == null)
             {
                 return NotFound(response);

@@ -1,13 +1,12 @@
 using FinalYearProject.Services.patientService.DoctorService;
 using FinalYearProject.Models;
 using Microsoft.AspNetCore.Mvc;
-using FinalYearProject.Dtos.patient;
 using Microsoft.AspNetCore.Authorization;
 using FinalYearProject.Dtos.patient.Doctor;
 
 namespace FinalYearProject.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("DoctorController")]
     

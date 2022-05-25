@@ -76,15 +76,15 @@ namespace FinalYearProject.Services.patientService
             return ServiceResponse;
         }
 
-        public async Task<ServiceResponse<GetPatientDto>> GetpatientByTel(int tel)
+        public async Task<ServiceResponse<List<GetPatientDto>>> GetpatientByTel(int tel)
         {
-            var ServiceResponse = new ServiceResponse<GetPatientDto>();
-            var dbPatient = await _context.Patients.AnyAsync(p => int.Parse(p.telnum) == tel);
-            ServiceResponse.Data = _mapper.Map<GetPatientDto>(dbPatient);
+             var ServiceResponse = new ServiceResponse<List<GetPatientDto>>();
+            var dbPatients = await _context.Patients.Where(p => p.telnum ==tel.ToString()).ToListAsync();
+            ServiceResponse.Data = dbPatients.Select(p=> _mapper.Map<GetPatientDto>(p)).ToList();
             if (ServiceResponse.Data == null)
             {
                 ServiceResponse.Success = false;
-                ServiceResponse.Message = "Patient not found";
+                ServiceResponse.Message = "Patients not found";
             }
             return ServiceResponse;
         }

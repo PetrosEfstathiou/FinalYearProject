@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FinalYearProject.Controllers
 {
-   // [Authorize]
+   [Authorize]
     [ApiController]
     [Route("AppointmentController")]
     public class AppController : ControllerBase

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinalYearProject.Controllers
 {
-   // [Authorize]
+   [Authorize]
     [ApiController]
     [Route("XrayController")]
     public class XrayController : ControllerBase

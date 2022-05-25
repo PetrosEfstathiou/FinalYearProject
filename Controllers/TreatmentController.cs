@@ -1,14 +1,12 @@
 using FinalYearProject.Dtos.patient.Treatment;
-using FinalYearProject.Dtos.patient.Xray;
 using FinalYearProject.Models;
-using FinalYearProject.Services.patientService;
 using FinalYearProject.Services.patientService.TreatmentService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalYearProject.Controllers
 {
-   // [Authorize]
+   [Authorize]
     [ApiController]
     [Route("TreatmentController")]
     public class TreatmentController :ControllerBase
