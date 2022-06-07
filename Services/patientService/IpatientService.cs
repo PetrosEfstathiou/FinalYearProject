@@ -9,12 +9,9 @@ namespace FinalYearProject.Services.patientService
     {
          Task<ServiceResponse<List<GetPatientDto>>> GetAllpatients();
          Task<ServiceResponse<GetPatientDto>> GetpatientById (int id);
-
          Task<ServiceResponse<List<GetPatientDto>>> GetpatientByTel (int telnum);
          Task<ServiceResponse<List<GetPatientDto>>> AddPatient(AddPatientDto newPatient);
-
          Task<ServiceResponse<GetPatientDto>> UpdatePatient(UpdatePatientDto updatedPatient);
-
          Task<ServiceResponse<List<GetPatientDto>>> DeletePatient(int id);
     }
 }

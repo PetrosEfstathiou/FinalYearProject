@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace FinalYearProject.Controllers
 {
-   [Authorize]
+  [Authorize]
     [ApiController]
     [Route("TreatmentCostController")]
     public class TreatmentCostController :ControllerBase

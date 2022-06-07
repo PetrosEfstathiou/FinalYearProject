@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using FinalYearProject.Services.patientService.AppointmentService;
 using FinalYearProject.Dtos.patient.Appointment;
 using Microsoft.AspNetCore.Authorization;
+using System.Net;
 
 namespace FinalYearProject.Controllers
 {
-   [Authorize]
+    [Authorize]
     [ApiController]
     [Route("AppointmentController")]
     public class AppController : ControllerBase
@@ -22,7 +23,9 @@ namespace FinalYearProject.Controllers
         [Route("GetAll")]
         public async Task<ActionResult<ServiceResponse<List<GetAppointmentDto>>>> GetAll()
         {
+            
             return Ok(await _AppService.GetAllAppointments());
+
         }
 
         [HttpGet]
